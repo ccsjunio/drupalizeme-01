@@ -4,8 +4,18 @@ services:
     image: osiolabs/drupaldevwithdocker-php
     volumes:
       - ./docroot:/var/www/html:cached
-      - ./vendor:/var/www/vendor:delegated
+    ports:
+      - "8080:80"
   db:
     image: osiolabs/drupaldevwithdocker-mysql
     volumes:
       - ./db-backups:/var/mysql/backups
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: drupaldb
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: verybadpassword
+    env_file:
+      - ./docker-mysql.settings
+    ports:
+      - "3310:3306"
