@@ -2,5 +2,10 @@ version: '3'
 services:
   web:
     image: osiolabs/drupaldevwithdocker-php
+    volumes:
+      - ./docroot:/var/www/html:cached
+      - ./vendor:/var/www/vendor:delegated
   db:
     image: osiolabs/drupaldevwithdocker-mysql
+    volumes:
+      - ./db-backups:/var/mysql/backups
